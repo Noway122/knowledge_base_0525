@@ -8,9 +8,11 @@ from abc import ABC, abstractmethod
 from typing import TypeVar, Optional
 import logging
 
-from knowledge.processor.import_process.config import ImportConfig, get_config
-from knowledge.processor.import_process.exceptions import ImportProcessError
-from knowledge.utils.task_util import add_running_task, add_done_task
+from processor.import_processor.config import ImportConfig, get_config
+from processor.import_processor.exceptions import ImportProcessError
+from utils.task_utils import add_running_task, add_done_task
+
+
 
 T = TypeVar("T")  # 泛型状态类型
 
@@ -66,11 +68,13 @@ class BaseNode(ABC):
         try:
             # 1. 开始准备执行节点
             self.logger.info(f"--- {self.name} 开始 ---")
+            add_running_task(state["task_id"], self.name)
 
             # 2. 执行节点
             result = self.process(state)
 
             # 3. 执行节点成功
+            add_done_task(state["task_id"], self.name)
             self.logger.info(f"--- {self.name} 完成 ---")
 
             return result
@@ -124,3 +128,7 @@ def setup_logging(level: int = logging.INFO):
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'
     )
+
+
+
+

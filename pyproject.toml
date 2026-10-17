@@ -1,0 +1,47 @@
+[project]
+name = "knowledge-base-0525"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "colorlog>=6.12.0",
+    "dashscope>=1.27.7",
+    "fastapi>=0.141.1",
+    "field>=0.2.0",
+    "flagembedding>=1.4.2",
+    "grandalf>=0.8",
+    "langchain>=1.4.0",
+    "langchain-openai>=1.6.2",
+    "langchain-text-splitters>=1.1.2",
+    "langgraph>=1.2.11",
+    "logger>=1.4",
+    "mcp<2",
+    "minio>=7.2.20",
+    "modelscope>=1.40.2",
+    "numpy>=2.5.3",
+    "openai-agents>=0.23.1",
+    "pymilvus[model]>=3.0.2",
+    "pymongo>=4.18.1",
+    "python-dotenv>=1.2.3",
+    "torch>=2.14.1",
+    "torchaudio>=2.11.0",
+    "torchvision>=0.29.1",
+    "transformers>=5.19.0",
+]
+
+[[tool.uv.index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true
+
+# PyTorch 官方 CUDA 索引（显式索引，仅供 tool.uv.sources 引用）。
+# 清华 default 源上的 torch 是 CPU 构建，必须从这里取 CUDA 版。
+[[tool.uv.index]]
+name = "pytorch-cu130"
+url = "https://download.pytorch.org/whl/cu130"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu130" }
+torchvision = { index = "pytorch-cu130" }
+torchaudio = { index = "pytorch-cu130" }
